@@ -102,13 +102,11 @@ def normalize_text(df):
 
 
 def save_data(data_path,train_processed_data,test_processed_data):
-    os.makedirs(data_path)
+    os.makedirs(data_path,exist_ok=True)
     train_processed_data.to_csv(os.path.join(data_path,"train_processed.csv"))
     test_processed_data.to_csv(os.path.join(data_path,"test_processed.csv")) 
 
 
-# store the data inside data/processed
-data_path = os.path.join("data","processed")
 
 def main():
     try:
@@ -116,7 +114,7 @@ def main():
         logger.debug('data loaded properly')
         train_processed_data = normalize_text(train_data)
         test_processed_data = normalize_text(test_data)
-        data_path = os.path.join("./data", "interim")
+        data_path = os.path.join("data", "interim")
         save_data(data_path,train_processed_data,test_processed_data)
         logger.debug('Processed data saved to %s', data_path)
     except Exception as e:
